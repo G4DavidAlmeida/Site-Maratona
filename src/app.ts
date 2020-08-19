@@ -9,7 +9,7 @@ import routes from './Routes'
 class App {
     public express: Application
 
-    public construtor () {
+    public constructor () {
       this.express = express()
 
       this.middlewares()

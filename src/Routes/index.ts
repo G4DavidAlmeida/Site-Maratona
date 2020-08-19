@@ -1,24 +1,49 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import ProblemsController from '@controllers/ProblemsController'
+import SessionController from '@controllers/SessionController'
+
+/***************************************
+ ****** Routes of the application ******
+ ***************************************/
+/* | | | | | | | | | | | | | | | | | | | */
+/* | | | | | | | | | | | | | | | | | | | */
+/* V V V V V V V V V V v V V V V V V V V */
+
+// Importa uma rota do express
 import { Router } from 'express'
 const routes = Router()
 
-routes.route('/') // Tela que mostra todos o problemas cadastrados (tela principal)
+//  Tela de login Tela que mostra todos o problemas cadastrados (tela principal)
+routes.route('/')
+  .get((req, res) => {
+    console.log('Teste debugging')
+    return res.render('login')
+  })
+  .post(SessionController.store)
+
+// Tela que mostra todos o problemas cadastrados (tela principal)
+routes.route('/dashboard')
   .get((req, res) => {})
 
-routes.route('/login') // Tela de login
+// Tela onde usuário configura seus dados
+routes.route('/conta')
   .get((req, res) => {})
 
-routes.route('/userconfig') // Tela onde usuário configura seus dados
+routes.route('/cadastro')
+  .get((req, res) => res.render(''))
+
+//  Cadastra/Editar problemas
+routes.route('/cadastro/problemas')
   .get((req, res) => {})
 
-routes.route('/cadastro/problemas') //  Cadastra/Editar problemas
+// Cadastrar/editar TIPO
+routes.route('/cadastro/tipos')
   .get((req, res) => {})
 
-routes.route('/cadastro/tipos') // Cadastrar/editar TIPO
+// Cadastrar/Editar SITE
+routes.route('/cadastro/site')
   .get((req, res) => {})
 
-routes.route('/cadastro/site') // Cadastrar/Editar SITE
-  .get((req, res) => {})
-
+// exporta a rota para nada, para default
 export default routes
