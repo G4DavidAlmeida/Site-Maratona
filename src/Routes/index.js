@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import ProblemsController from '@controllers/ProblemsController'
-import SessionController from '@controllers/SessionController'
+// const ProblemsController = require('../app/controllers/ProblemsController')
+const SessionController = require('../app/controllers/SessionController')
 
 /***************************************
  ****** Routes of the application ******
@@ -11,7 +9,7 @@ import SessionController from '@controllers/SessionController'
 /* V V V V V V V V V V v V V V V V V V V */
 
 // Importa uma rota do express
-import { Router } from 'express'
+const { Router } = require('express')
 const routes = Router()
 
 //  Tela de login Tela que mostra todos o problemas cadastrados (tela principal)
@@ -46,4 +44,4 @@ routes.route('/cadastro/site')
   .get((req, res) => {})
 
 // exporta a rota para nada, para default
-export default routes
+module.exports = routes
