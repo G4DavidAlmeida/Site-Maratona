@@ -4,9 +4,31 @@ const helmet = require('helmet')
 const cors = require('cors')
 const path = require('path')
 
+const session = require('express-session')
+const passport = require('passport')
+const flash = require('connect-flash')
+const globalVars = require('./middlewares/globalVars')
+const defineEnv = require('./utils/defineEnv')
+
 const app = express()
 
 app.use(helmet())// camadas de segurança da aplicação
+
+require('./config/passport')(passport)
+defineEnv()
+
+// express session
+app.use(session({
+  secret: process.env.SECRET,
+  resave: true,
+  saveUninitialized: true
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+
+// flash and global variables
+app.use(flash())
+app.use(globalVars)
 
 // middlewares
 app.use(expressLayout) // definindo layout padrão

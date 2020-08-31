@@ -1,0 +1,21 @@
+body {
+    background-color: #2d3436;
+}
+.container form {
+    border-radius: 10px;
+    box-shadow: 1px 2px 15px black;
+}
+div.float-words {
+    position: fixed;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    letter-spacing: 2px;
+}
+div.float-words h5:first-child {
+    color: white;
+}
+div.float-words h5:last-child {
+    color: #95a5a6;
+}

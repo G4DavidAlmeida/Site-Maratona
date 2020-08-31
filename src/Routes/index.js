@@ -15,7 +15,6 @@ const routes = Router()
 //  Tela de login Tela que mostra todos o problemas cadastrados (tela principal)
 routes.route('/')
   .get((req, res) => {
-    console.log('Teste debugging')
     return res.render('login')
   })
   .post(SessionController.store)
@@ -26,7 +25,9 @@ routes.route('/dashboard')
 
 // Tela onde usuário configura seus dados
 routes.route('/conta')
-  .get((req, res) => {})
+  .get((req, res) => {
+    return res.render('conta')
+  })
 
 routes.route('/cadastro')
   .get((req, res) => res.render(''))
