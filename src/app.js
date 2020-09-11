@@ -1,7 +1,6 @@
 const express = require('express')
 const expressLayout = require('express-ejs-layouts')
 const helmet = require('helmet')
-const cors = require('cors')
 const path = require('path')
 
 const session = require('express-session')
@@ -9,6 +8,8 @@ const passport = require('passport')
 const flash = require('connect-flash')
 const globalVars = require('./middlewares/globalVars')
 const defineEnv = require('./utils/defineEnv')
+
+const routes = require('./Routes')
 
 const app = express()
 
@@ -30,19 +31,17 @@ app.use(passport.session())
 app.use(flash())
 app.use(globalVars)
 
+app.use(express.urlencoded({ extended: false }))
+
 // middlewares
 app.use(expressLayout) // definindo layout padrão
 app.set('view engine', 'ejs') // view engine
 app.set('views', path.resolve(__dirname, 'app', 'views'))// local da pasta views
 
-app.use(express.urlencoded({ extended: false }))
-app.use(express.json())// define json como protocolo de comunicação padrão
-
 app.use('/public', // define um rota /public com arquivos estáticos
   express.static(path.resolve(process.cwd(), 'public')))
+// definido rotas da aplicação
 
-app.use(require('./Routes'))
-
-app.use(cors())// permite que qualquer cliente possa acessar a aplicação
+app.use(routes)
 
 module.exports = app

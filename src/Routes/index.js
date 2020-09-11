@@ -1,5 +1,7 @@
-// const ProblemsController = require('../app/controllers/ProblemsController')
 const SessionController = require('../app/controllers/SessionController')
+const UserController = require('../app/controllers/UserController')
+
+const UserValidators = require('../app/validators/user')
 
 /***************************************
  ****** Routes of the application ******
@@ -14,19 +16,21 @@ const routes = Router()
 
 //  Tela de login Tela que mostra todos o problemas cadastrados (tela principal)
 routes.route('/')
-  .get((req, res) => {
-    return res.render('login')
-  })
+  .get((req, res) => res.render('login'))
   .post(SessionController.store)
 
 // Tela que mostra todos o problemas cadastrados (tela principal)
 routes.route('/dashboard')
-  .get((req, res) => {})
+  .get((req, res) => res.send('dashboard'))
+
+routes.route('/dashboard/register/user')
+  .get((req, res) => res.render('newUser'))
+  .post(UserValidators.store, UserController.store)
 
 // Tela onde usuário configura seus dados
-routes.route('/conta')
+routes.route('/account')
   .get((req, res) => {
-    return res.render('conta')
+    return res.render('account')
   })
 
 routes.route('/cadastro')
@@ -44,5 +48,4 @@ routes.route('/cadastro/tipos')
 routes.route('/cadastro/site')
   .get((req, res) => {})
 
-// exporta a rota para nada, para default
 module.exports = routes

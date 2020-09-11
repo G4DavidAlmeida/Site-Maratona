@@ -1,6 +1,5 @@
 node_modules
 myTest
-
 # enviroment variables
 env/*.*
 !env/.env.example

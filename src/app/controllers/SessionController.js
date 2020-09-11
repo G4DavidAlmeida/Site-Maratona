@@ -1,11 +1,15 @@
 class SessionController {
+  /**
+   * @param {import('express').Request} req
+   * @param {import('express').Response} res
+   * */
   async store (req, res) {
-    // Acessa o Banco de Dados (Data Base)
-    const { email, password } = req.body
+    const { email } = req.body
 
-    //  Aqui vai o código verificação do usuário e senha
+    console.log(req.body)
+    console.log(email)
 
-    return res.redirect('/dashboard')
+    return res.redirect('/')
   }
 
   // async destroy (req, res) {}
