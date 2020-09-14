@@ -2,7 +2,7 @@ const SessionController = require('../app/controllers/SessionController')
 const UserController = require('../app/controllers/UserController')
 
 const UserValidators = require('../app/validators/user')
-
+const { ensureAuthenticated } = require('../config/auth')
 /***************************************
  ****** Routes of the application ******
  ***************************************/
@@ -13,6 +13,10 @@ const UserValidators = require('../app/validators/user')
 // Importa uma rota do express
 const { Router } = require('express')
 const routes = Router()
+
+const sessionValidator = require('..')
+// middleware de autenticação
+routes.use('/dashboard', ensureAuthenticated)
 
 //  Tela de login Tela que mostra todos o problemas cadastrados (tela principal)
 routes.route('/')

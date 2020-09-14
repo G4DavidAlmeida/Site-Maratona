@@ -1,13 +1,6 @@
 const { checkSchema } = require('express-validator')
 
 module.exports = checkSchema({
-  nome: {
-    isString: { errorMessage: 'O nome deve ser uma string' },
-    matches: {
-      options: /^[a-zà-ú ]{3,40}$/i,
-      errorMessage: 'Nome deve possuir apenas letras'
-    }
-  },
   email: {
     isEmail: { errorMessage: 'Estrutura do campo email inválida' }
   },
@@ -18,4 +11,4 @@ module.exports = checkSchema({
       errorMessage: 'Senha deve ter entre 4 e 40 caracteres'
     }
   }
-})
+}, ['body'])

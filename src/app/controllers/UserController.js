@@ -12,7 +12,10 @@ class UserController {
 
       if (!result.isEmpty()) {
         return res.status(400)
-          .send(result.array())
+          .render('newUser', {
+            errors: result.array(),
+            ...req.body
+          })
       }
 
       const { nome, email, senha } = req.body
@@ -21,10 +24,16 @@ class UserController {
 
       await user.create()
 
-      return res.redirect('/login')
+      req.flash('success_msg', 'Usuário criado com sucesso')
+      return res.redirect('/dashboard/register/user')
     } catch (err) {
-      console.error(err)
-      return res.status(500).send('erro na requisição')
+      if (err.errno === 1062) {
+        req.flash('error_msg', 'Email já é utilizado por outro usuário')
+        return res.status(400).redirect('/dashboard/register/user')
+      } else {
+        console.error(err)
+        return res.status(500).send('erro na requisição')
+      }
     }
   }
 

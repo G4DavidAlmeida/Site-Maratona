@@ -1,17 +1,43 @@
 const LocalStrategy = require('passport-local').Strategy
+const User = require('../app/model/User')
 
 /** @param {import('passport').PassportStatic} passport */
 module.exports = function (passport) {
   passport.use(
-    new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+    new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
       try {
+        const user = await User.findOne({ email })
 
+        if (!user) {
+          return done(null, false, { message: 'Este email não foi cadastrado' })
+        }
+
+        if (user.password === password) {
+          return done(null, user)
+        }
+
+        return done(null, false, { message: 'senha incorreta' })
       } catch (err) {
         console.log(err)
         done(err)
       }
     })
   )
+
+  passport.serializeUser(function (user, done) {
+    done(null, user.id)
+  })
+
+  passport.deserializeUser(async function (id, done) {
+    try {
+      const user = User.findOne({ id })
+
+      done(null, user)
+    } catch (err) {
+      console.error(err)
+      done(err)
+    }
+  })
 }
 
 /*

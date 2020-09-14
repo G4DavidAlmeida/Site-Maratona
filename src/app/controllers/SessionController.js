@@ -1,18 +1,39 @@
+const passport = require('passport')
+
+const { validationResult } = require('express-validator')
+
 class SessionController {
   /**
    * @param {import('express').Request} req
    * @param {import('express').Response} res
    * */
-  async store (req, res) {
-    const { email } = req.body
+  async store (req, res, next) {
+    const result = validationResult(req)
 
-    console.log(req.body)
-    console.log(email)
+    if (!result.empty()) {
+      return res.status(400)
+        .render('/', {
+          errors: result.array(),
+          ...req.body
+        })
+    }
 
-    return res.redirect('/')
+    passport.authenticate('local', {
+      successRedirect: '/dashboard',
+      failureRedirect: '/',
+      failureFlash: true
+    })(req, res, next)
   }
 
-  // async destroy (req, res) {}
+  /**
+   * @param {import('express').Request} req
+   * @param {import('express').Response} res
+   * */
+  async destroy (req, res) {
+    req.logout()
+    req.flash('success_msg', 'Você saiu da conta')
+    return res.redirect('/')
+  }
 }
 
 module.exports = new SessionController()

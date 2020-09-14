@@ -10,32 +10,20 @@ module.exports = class User {
 
   async create () {
     const { senha, email, ativo, nome } = this
-    return await new Promise((resolve, reject) => {
-      connection.query(
-        'insert into usuario ' +
-        '(`senha`, `email`, `ativo`, `nome`, `usuario_insert`, `data_insert`) ' +
-        'values (?, ?, ?, ?, ?, ?);',
-        [senha, email, ativo, nome, 12, new Date()],
-        (err, results, fields) => {
-          if (err) reject(err)
-          resolve({ results: results, fields: fields })
-        }
-      )
-    })
+    return await connection.query(
+      'insert into usuario ' +
+      '(`senha`, `email`, `ativo`, `nome`, `usuario_insert`, `data_insert`) ' +
+      'values (?, ?, ?, ?, ?, ?);',
+      [senha, email, ativo, nome, 12, new Date()]
+    )
   }
 
-  /*
-const employee = { name: 'siddiqui', location: 'Canada' };
-connection.query('INSERT INTO employees SET ?', employee, (err, res) => {
-  if(err) throw err;
-
-  console.log('Last insert ID:', res.insertId);
-});
-*/
-
-  static async list () {}
+  static async findOne ({ email }) {
+    const result = await connection.query(
+      'select * from usuario' +
+      'where email = ?',
+      [email]
+    )
+    console.log(result)
+  }
 }
-// MVC
-// M = model = guarda todas as entidades do sistema
-// V - View = interface do sistema, parte visual
-// C - Controllers = guarda toda regra de negócios do sistema

@@ -123,7 +123,7 @@ UNLOCK TABLES;
 CREATE TABLE `usuario` (
   `id` int NOT NULL AUTO_INCREMENT,
   `senha` varchar(32) NOT NULL,
-  `email` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL UNIQUE,
   `ativo` bit(1) NOT NULL DEFAULT b'1',
   `nome` varchar(100) NOT NULL,
   `usuario_insert` int NOT NULL,

@@ -8,20 +8,22 @@ Informações da conta
 <!-- conteúdo que vai dentro do body -->
 
 <div class="float-words" >
-  <h4> NOVO USUÁRIO DO USUÁRIO </h4>
+  <h4> NOVO USUÁRIO </h4>
 </div>
 
 <div class="container d-flex justify-content-center align-items-center vh-100" >
     <form method="POST" action="/dashboard/register/user" class="w-50 bg-white p-5">
       <h1 class="display-5 mb-5">Registrar novo usuário</h1>
+      <%- include('partials/messages') %>
       <div class="form-group row">
         <div class="col-sm-12">
           <input
             type="email"
             name="email"
+            value="<%= typeof email === 'string' ? email : "" %>"
             class="form-control"
             id="inputEmail"
-            placeholder="Email"
+            placeholder="Email*"
           />
         </div>
       </div>
@@ -30,6 +32,7 @@ Informações da conta
           <input 
             type="text" 
             name="nome"
+            value="<%= typeof nome === 'string' ? nome : "" %>"
             class="form-control" 
             id="inputNome"
             placeholder="Nome Completo*"
@@ -41,6 +44,7 @@ Informações da conta
           <input
             type="password"
             name="senha"
+            value="<%= typeof senha === 'string' ? senha : "" %>"
             class="form-control" 
             id="inputPassword" 
             placeholder="Senha*"
