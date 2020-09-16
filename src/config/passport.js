@@ -1,10 +1,14 @@
 const LocalStrategy = require('passport-local').Strategy
 const User = require('../app/model/User')
+const { compare } = require('bcryptjs')
 
 /** @param {import('passport').PassportStatic} passport */
 module.exports = function (passport) {
   passport.use(
-    new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
+    new LocalStrategy({
+      usernameField: 'email',
+      passwordField: 'senha'
+    }, async (email, password, done) => {
       try {
         const user = await User.findOne({ email })
 
@@ -12,7 +16,7 @@ module.exports = function (passport) {
           return done(null, false, { message: 'Este email não foi cadastrado' })
         }
 
-        if (user.password === password) {
+        if (await (compare(password, user.senha))) {
           return done(null, user)
         }
 
@@ -30,9 +34,13 @@ module.exports = function (passport) {
 
   passport.deserializeUser(async function (id, done) {
     try {
-      const user = User.findOne({ id })
+      const user = await User.findOne({ id })
 
-      done(null, user)
+      const sessionUser = {
+        id: user.id
+      }
+
+      done(null, sessionUser)
     } catch (err) {
       console.error(err)
       done(err)

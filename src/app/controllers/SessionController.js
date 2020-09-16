@@ -1,5 +1,4 @@
 const passport = require('passport')
-
 const { validationResult } = require('express-validator')
 
 class SessionController {
@@ -10,9 +9,9 @@ class SessionController {
   async store (req, res, next) {
     const result = validationResult(req)
 
-    if (!result.empty()) {
+    if (!result.isEmpty()) {
       return res.status(400)
-        .render('/', {
+        .render('login', {
           errors: result.array(),
           ...req.body
         })

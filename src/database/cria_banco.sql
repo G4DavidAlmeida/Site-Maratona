@@ -122,7 +122,7 @@ UNLOCK TABLES;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuario` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `senha` varchar(32) NOT NULL,
+  `senha` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL UNIQUE,
   `ativo` bit(1) NOT NULL DEFAULT b'1',
   `nome` varchar(100) NOT NULL,

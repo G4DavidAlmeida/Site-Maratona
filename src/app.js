@@ -8,6 +8,7 @@ const passport = require('passport')
 const flash = require('connect-flash')
 const globalVars = require('./middlewares/globalVars')
 const defineEnv = require('./utils/defineEnv')
+const configPassport = require('./config/passport')
 
 const routes = require('./Routes')
 
@@ -15,7 +16,7 @@ const app = express()
 
 app.use(helmet())// camadas de segurança da aplicação
 
-require('./config/passport')(passport)
+configPassport(passport)
 defineEnv()
 
 // express session
